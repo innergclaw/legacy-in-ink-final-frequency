@@ -27,7 +27,10 @@ const pageTitles = [
   "Verse 002 Reader Notes",
   "Verse 003 Title",
   "Verse 003: The Book Of The Table",
-  "Verse 003 Reader Notes"
+  "Verse 003 Reader Notes",
+  "Verse 004 Title",
+  "Verse 004: Take Care Of Your Business",
+  "Verse 004 Reader Notes"
 ];
 
 function pageManifest() {
