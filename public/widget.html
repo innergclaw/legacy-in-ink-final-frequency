@@ -48,12 +48,11 @@
         radial-gradient(circle at 50% 18%, rgba(239, 229, 207, .16), transparent 30%),
         radial-gradient(circle at 22% 12%, rgba(164, 24, 20, .34), transparent 28%),
         linear-gradient(140deg, #050504, #19110f 56%, #050504);
-      transition: opacity .55s ease, transform .55s ease, visibility .55s ease;
+      transition: opacity .42s ease, visibility .42s ease;
     }
 
     .splash.hidden {
       opacity: 0;
-      transform: translateY(-18px) scale(1.02);
       visibility: hidden;
       pointer-events: none;
     }
@@ -69,24 +68,21 @@
     .cover-stack {
       position: relative;
       aspect-ratio: 2 / 3;
-      filter: drop-shadow(0 34px 42px rgba(0, 0, 0, .62));
-      transform: rotate(-3deg);
+      filter: drop-shadow(0 26px 34px rgba(0, 0, 0, .54));
     }
 
     .cover-stack::before,
     .cover-stack::after {
       content: "";
       position: absolute;
-      inset: 10px -13px -10px 13px;
+      inset: 8px -10px -8px 10px;
       border: 1px solid rgba(239, 229, 207, .3);
       background: rgba(239, 229, 207, .12);
-      transform: rotate(5deg);
     }
 
     .cover-stack::after {
-      inset: 18px -24px -18px 24px;
+      inset: 16px -18px -16px 18px;
       opacity: .45;
-      transform: rotate(8deg);
     }
 
     .cover-stack img {
@@ -128,6 +124,8 @@
       position: relative;
       overflow: hidden;
       touch-action: pan-y;
+      --open-progress: 0%;
+      --handle-x: 0px;
     }
 
     .open-slider::before {
@@ -147,12 +145,13 @@
       inset: 0 auto 0 0;
       width: var(--open-progress, 0%);
       background: rgba(164, 24, 20, .72);
+      transition: width .18s ease;
     }
 
     .slider-handle {
       position: absolute;
       top: 7px;
-      left: calc(var(--open-progress, 0%) - 1px);
+      left: 7px;
       width: 42px;
       height: 42px;
       display: grid;
@@ -160,7 +159,8 @@
       background: var(--paper);
       color: var(--ink);
       font-weight: 950;
-      transform: translateX(7px);
+      transform: translateX(var(--handle-x, 0px));
+      transition: transform .18s ease;
       box-shadow: 4px 4px 0 rgba(164, 24, 20, .85);
     }
 
@@ -234,16 +234,18 @@
       padding: 18px;
       border: 1px solid var(--line);
       background: rgba(239, 229, 207, .045);
-      perspective: 1400px;
       overflow: hidden;
     }
 
     .book {
       position: relative;
-      width: min(72vh, 82vw);
+      width: min(70vh, 82vw);
       aspect-ratio: 2 / 3;
-      filter: drop-shadow(0 28px 40px rgba(0, 0, 0, .52));
+      filter: drop-shadow(0 24px 34px rgba(0, 0, 0, .48));
       cursor: pointer;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(255, 255, 255, .16);
     }
 
     .page {
@@ -254,28 +256,29 @@
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, .2);
       background: var(--paper);
-      transform-origin: left center;
-      transition: transform .48s ease, opacity .32s ease;
+      transform: translateX(12px);
+      transition: transform .32s ease, opacity .32s ease;
       opacity: 0;
       pointer-events: none;
       user-select: none;
+      will-change: transform, opacity;
     }
 
     .page.active {
       opacity: 1;
-      transform: rotateY(0deg);
+      transform: translateX(0);
       z-index: 5;
     }
 
     .page.prev {
-      opacity: .2;
-      transform: rotateY(-24deg) translateX(-8%);
+      opacity: 0;
+      transform: translateX(-12px);
       z-index: 2;
     }
 
     .page.next {
-      opacity: .12;
-      transform: translateX(5%) scale(.985);
+      opacity: 0;
+      transform: translateX(12px);
       z-index: 1;
     }
 
@@ -532,8 +535,15 @@
     function setSliderProgress(clientX) {
       const rect = openSlider.getBoundingClientRect();
       const progress = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+      const handleX = Math.max(0, Math.min(rect.width - 56, (progress / 100) * (rect.width - 56)));
       openSlider.style.setProperty("--open-progress", `${progress}%`);
+      openSlider.style.setProperty("--handle-x", `${handleX}px`);
       if (progress >= 82) openBook();
+    }
+
+    function resetSlider() {
+      openSlider.style.setProperty("--open-progress", "0%");
+      openSlider.style.setProperty("--handle-x", "0px");
     }
 
     openSlider.addEventListener("pointerdown", (event) => {
@@ -553,7 +563,7 @@
       const moved = Math.abs(event.clientX - sliderStart);
       if (moved < 8) openBook();
       if (!splash.classList.contains("hidden")) {
-        openSlider.style.setProperty("--open-progress", "0%");
+        resetSlider();
       }
     });
 
