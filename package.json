@@ -1,0 +1,16 @@
+{
+  "name": "legacy-in-ink-final-frequency-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenAI Apps SDK style digital booklet for Legacy In Ink: The Final Frequency.",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node src/server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "express": "^5.1.0",
+    "zod": "^3.25.0"
+  }
+}
