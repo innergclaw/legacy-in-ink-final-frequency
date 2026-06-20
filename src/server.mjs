@@ -33,7 +33,10 @@ const pageTitles = [
   "Verse 004 Reader Notes",
   "Verse 005 Title",
   "Verse 005: Feelings Heal, Principles Stand",
-  "Verse 005 Reader Notes"
+  "Verse 005 Reader Notes",
+  "Verse 006 Title",
+  "Verse 006: Redeem Your Time",
+  "Verse 006 Reader Notes"
 ];
 
 function pageManifest() {
