@@ -42,7 +42,10 @@ const pageTitles = [
   "Verse 007 Reader Notes",
   "Verse 008 Title",
   "Verse 008: Speak Life Into The Gate",
-  "Verse 008 Reader Notes"
+  "Verse 008 Reader Notes",
+  "Verse 009 Title",
+  "Verse 009: Old Lies From New Mouths",
+  "Verse 009 Reader Notes"
 ];
 
 function pageManifest() {
