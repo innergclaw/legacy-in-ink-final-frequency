@@ -39,7 +39,10 @@ const pageTitles = [
   "Verse 006 Reader Notes",
   "Verse 007 Title",
   "Verse 007: Let Money Become Shelter",
-  "Verse 007 Reader Notes"
+  "Verse 007 Reader Notes",
+  "Verse 008 Title",
+  "Verse 008: Speak Life Into The Gate",
+  "Verse 008 Reader Notes"
 ];
 
 function pageManifest() {
