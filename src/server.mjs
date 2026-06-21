@@ -46,8 +46,6 @@ const pageTitles = [
   "Verse 009 Title",
   "Verse 009: Old Lies From New Mouths I",
   "Verse 009: Old Lies From New Mouths II",
-  "Verse 009: Old Lies From New Mouths III",
-  "Verse 009: Old Lies From New Mouths IV",
   "Verse 009 Reader Notes"
 ];
 
