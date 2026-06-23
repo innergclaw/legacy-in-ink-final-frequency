@@ -49,7 +49,10 @@ const pageTitles = [
   "Verse 009 Reader Notes",
   "Verse 010 Title",
   "Verse 010: The Measure In The Challenge",
-  "Verse 010 Reader Notes"
+  "Verse 010 Reader Notes",
+  "Verse 011 Title",
+  "Verse 011: Stop Borrowing Love",
+  "Verse 011 Reader Notes"
 ];
 
 function pageManifest() {
