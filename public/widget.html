@@ -485,11 +485,12 @@
 
     let current = startPage - 1;
 
-    const pageEls = pages.map((page, index) => {
+    const pageSlots = ["prev", "active", "next"].map((slot) => {
       const img = document.createElement("img");
-      img.className = "page";
-      img.src = page.imageUrl;
-      img.alt = page.title || `Legacy In Ink booklet page ${index + 1}`;
+      img.className = `page ${slot}`;
+      img.alt = "";
+      img.decoding = "async";
+      img.loading = slot === "active" ? "eager" : "lazy";
       book.appendChild(img);
       return img;
     });
@@ -498,7 +499,7 @@
       const thumb = document.createElement("button");
       thumb.type = "button";
       thumb.className = "thumb";
-      thumb.innerHTML = `<img src="${page.imageUrl}" alt=""><span>${String(index + 1).padStart(2, "0")}</span>`;
+      thumb.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span>`;
       thumb.addEventListener("click", () => {
         current = index;
         render();
@@ -509,23 +510,42 @@
     const thumbs = Array.from(document.querySelectorAll(".thumb"));
 
     function render() {
-      pageEls.forEach((page, index) => {
-        page.classList.toggle("active", index === current);
-        page.classList.toggle("prev", index === current - 1);
-        page.classList.toggle("next", index === current + 1);
+      const slotData = [
+        { el: pageSlots[0], index: current - 1, className: "page prev" },
+        { el: pageSlots[1], index: current, className: "page active" },
+        { el: pageSlots[2], index: current + 1, className: "page next" }
+      ];
+
+      slotData.forEach(({ el, index, className }) => {
+        const page = pages[index];
+        el.className = className;
+        if (!page) {
+          el.removeAttribute("src");
+          el.alt = "";
+          el.hidden = true;
+          return;
+        }
+        if (el.getAttribute("src") !== page.imageUrl) {
+          el.src = page.imageUrl;
+        }
+        el.alt = page.title || `Legacy In Ink booklet page ${index + 1}`;
+        el.hidden = false;
       });
 
       thumbs.forEach((thumb, index) => {
         thumb.classList.toggle("active", index === current);
       });
 
-      counter.textContent = `Page ${current + 1} / ${pageEls.length}`;
-      bar.style.width = `${((current + 1) / pageEls.length) * 100}%`;
+      counter.textContent = `Page ${current + 1} / ${pages.length}`;
+      bar.style.width = `${((current + 1) / pages.length) * 100}%`;
       thumbs[current]?.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
 
     function openBook() {
       splash.classList.add("hidden");
+      window.setTimeout(() => {
+        splash.querySelectorAll("img").forEach((img) => img.removeAttribute("src"));
+      }, 500);
     }
 
     let dragging = false;
@@ -576,7 +596,7 @@
     });
 
     document.querySelector("#next").addEventListener("click", () => {
-      current = Math.min(pageEls.length - 1, current + 1);
+      current = Math.min(pages.length - 1, current + 1);
       render();
     });
 
@@ -586,7 +606,7 @@
     });
 
     book.addEventListener("click", () => {
-      current = Math.min(pageEls.length - 1, current + 1);
+      current = Math.min(pages.length - 1, current + 1);
       render();
     });
 
