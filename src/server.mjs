@@ -52,7 +52,15 @@ const pageTitles = [
   "Verse 010 Reader Notes",
   "Verse 011 Title",
   "Verse 011: Stop Borrowing Love",
-  "Verse 011 Reader Notes"
+  "Verse 011 Reader Notes",
+  "Verse 012 Title",
+  "Verse 012: Own What Cannot Be Taken I",
+  "Verse 012: Own What Cannot Be Taken II",
+  "Verse 012: Own What Cannot Be Taken III",
+  "Verse 012: Own What Cannot Be Taken IV",
+  "Verse 012: Own What Cannot Be Taken V",
+  "Verse 012: Own What Cannot Be Taken VI",
+  "Verse 012 Reader Notes"
 ];
 
 function pageManifest() {
