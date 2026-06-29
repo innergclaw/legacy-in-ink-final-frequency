@@ -496,6 +496,57 @@
       line-height: 1.45;
     }
 
+    .preview-gate {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 18px;
+      margin-top: 14px;
+      padding: clamp(18px, 4vw, 30px);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(164, 24, 20, .28), transparent 46%),
+        rgba(10, 10, 9, .54);
+    }
+
+    .preview-gate h2 {
+      margin: 4px 0 0;
+      color: #fffaf1;
+      font-size: clamp(28px, 5vw, 58px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .preview-gate p {
+      margin: 12px 0 0;
+      max-width: 680px;
+      color: #decfb5;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .preview-form {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+    }
+
+    .preview-form input {
+      width: 100%;
+      min-height: 50px;
+      border: 2px solid rgba(239, 229, 207, .72);
+      background: rgba(239, 229, 207, .1);
+      color: #fffaf1;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .preview-form input::placeholder {
+      color: rgba(239, 229, 207, .62);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
     @media (max-width: 760px) {
       .app {
         padding: 10px;
@@ -518,6 +569,7 @@
 
       header,
       main,
+      .preview-gate,
       .campaign-hero,
       .promo-grid,
       .caption-strip {
@@ -558,7 +610,7 @@
       <div class="splash-copy">
         <div class="eyebrow">Digital Booklet Experience</div>
         <h2>Open The<br>Frequency</h2>
-        <p>Swipe into the archive. Read it like a living booklet: cover, verse pages, reader notes, and the preserved PDF.</p>
+        <p>Swipe into the preview. Read the table of contents, selected verses, and reader notes before the paperback drop opens.</p>
         <div class="open-slider" id="openSlider" role="button" tabindex="0" aria-label="Swipe to open the booklet">
           <div class="slider-fill"></div>
           <div class="slider-handle">›</div>
@@ -576,7 +628,7 @@
         <button id="prev" type="button">Prev</button>
         <button id="next" type="button">Next</button>
         <button id="cover" class="secondary" type="button">Cover</button>
-        <a id="pdfLink" class="download" href="#" target="_blank" rel="noopener">PDF</a>
+        <a class="download" href="#paperback-drop">Join Drop</a>
       </nav>
     </header>
 
@@ -587,7 +639,7 @@
 
       <aside aria-label="Page navigation">
         <div>
-          <div class="counter" id="counter">Page 1 / 102</div>
+          <div class="counter" id="counter">Preview 1 / 23</div>
           <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
         </div>
         <div class="rail" id="rail"></div>
@@ -595,15 +647,36 @@
       </aside>
     </main>
 
+    <section class="preview-gate" id="paperback-drop" aria-label="Join paperback drop">
+      <div>
+        <div class="eyebrow">Preview Read</div>
+        <h2>Read The Rest<br>With The Drop.</h2>
+        <p>This public preview keeps the table of contents open, then gives you verses 005, 011, and 012. Join the paperback drop list for the full release, new verse updates, and buying details when the book is ready.</p>
+      </div>
+      <form class="preview-form" action="https://formspree.io/f/mwvdqwle" method="POST">
+        <input type="email" name="email" placeholder="email address" required>
+        <input type="hidden" name="_subject" value="Legacy In Ink paperback drop signup">
+        <input type="hidden" name="source" value="Legacy In Ink preview reader">
+        <button type="submit">Join Paperback Drop</button>
+      </form>
+    </section>
+
   </div>
 
   <script>
     const assetBaseUrl = ".";
-    const fallbackPages = Array.from({ length: 102 }, (_, index) => {
-      const pageNumber = String(index + 1).padStart(2, "0");
+    const previewSourcePages = [
+      1, 2, 3,
+      25, 26, 27, 28, 29, 30, 31,
+      64, 65, 66, 67, 68,
+      69, 70, 71, 72, 73, 74, 75, 76
+    ];
+    const fallbackPages = previewSourcePages.map((sourcePage, index) => {
+      const pageNumber = String(sourcePage).padStart(2, "0");
       return {
         page: index + 1,
-        title: `Page ${index + 1}`,
+        sourcePage,
+        title: `Preview page ${index + 1}`,
         imageUrl: `${assetBaseUrl}/assets/pages/page-${pageNumber}.jpg`
       };
     });
@@ -611,7 +684,6 @@
     const toolOutput = window.openai?.toolOutput || {};
     const toolMeta = window.openai?.toolResponseMetadata || {};
     const pages = toolMeta.pages || toolOutput.pages || fallbackPages;
-    const pdfUrl = toolMeta.pdfUrl || toolOutput.pdfUrl || `${assetBaseUrl}/assets/legacy-in-ink-the-final-frequency-booklet.pdf`;
     const startPage = Math.max(1, Math.min(pages.length, toolOutput.startPage || toolMeta.startPage || 1));
 
     const book = document.querySelector("#book");
@@ -620,7 +692,6 @@
     const bar = document.querySelector("#bar");
     const splash = document.querySelector("#splash");
     const openSlider = document.querySelector("#openSlider");
-    document.querySelector("#pdfLink").href = pdfUrl;
 
     let current = startPage - 1;
 
@@ -675,7 +746,7 @@
         thumb.classList.toggle("active", index === current);
       });
 
-      counter.textContent = `Page ${current + 1} / ${pages.length}`;
+      counter.textContent = `Preview ${current + 1} / ${pages.length}`;
       bar.style.width = `${((current + 1) / pages.length) * 100}%`;
       thumbs[current]?.scrollIntoView({ block: "nearest", inline: "nearest" });
     }

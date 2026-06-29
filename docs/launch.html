@@ -354,7 +354,6 @@
         <div class="info-inner">
           <nav class="actions" aria-label="Book actions">
             <a class="action" href="./" aria-label="Read digital version">Read digital version <span class="arrow">></span></a>
-            <a class="action secondary" href="./assets/legacy-in-ink-the-final-frequency-booklet.pdf" target="_blank" rel="noopener">Download PDF <span class="arrow">></span></a>
             <a class="action secondary" href="#updates">Buy paperback when ready <span class="arrow">></span></a>
             <a class="action secondary" href="#updates">Join list / updates <span class="arrow">></span></a>
           </nav>
@@ -381,8 +380,10 @@
         <div class="kicker">Updates</div>
         <h2>Get The Paperback Drop.</h2>
         <p>Join the update list for the paperback release, new verses, visualizers, and launch notes.</p>
-        <form class="join-form" id="joinForm">
+        <form class="join-form" id="joinForm" action="https://formspree.io/f/mwvdqwle" method="POST">
           <input id="emailInput" type="email" name="email" placeholder="email address" required>
+          <input type="hidden" name="_subject" value="Legacy In Ink paperback drop signup">
+          <input type="hidden" name="source" value="Legacy In Ink launch page">
           <button type="submit">Join List</button>
         </form>
         <div class="form-note" id="formNote" aria-live="polite"></div>
@@ -395,14 +396,28 @@
     const emailInput = document.querySelector("#emailInput");
     const formNote = document.querySelector("#formNote");
 
-    joinForm.addEventListener("submit", (event) => {
+    joinForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const email = emailInput.value.trim();
       if (!email) return;
-      const subject = encodeURIComponent("Legacy In Ink Updates");
-      const body = encodeURIComponent(`Add this email to Legacy In Ink updates: ${email}`);
-      window.location.href = `mailto:nasirr@innergintel.org?subject=${subject}&body=${body}`;
-      formNote.textContent = "Opening email so this address can be added to the update list.";
+      formNote.textContent = "Sending...";
+
+      try {
+        const response = await fetch(joinForm.action, {
+          method: "POST",
+          body: new FormData(joinForm),
+          headers: { Accept: "application/json" }
+        });
+
+        if (!response.ok) {
+          throw new Error("Formspree submission failed");
+        }
+
+        joinForm.reset();
+        formNote.textContent = "You are on the paperback drop list.";
+      } catch (error) {
+        formNote.textContent = "Could not submit here. Email nasirr@innergintel.org to join the list.";
+      }
     });
   </script>
 </body>
