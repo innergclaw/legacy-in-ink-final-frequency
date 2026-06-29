@@ -595,23 +595,6 @@
       </aside>
     </main>
 
-    <section class="marketing" aria-label="Launch marketing assets">
-      <section class="campaign-hero">
-        <div class="campaign-copy">
-          <div class="kicker">Legacy In Ink / The Final Frequency</div>
-          <h2>A Field Guide<br>For Breaking The Loop.</h2>
-          <p>Sixteen preserved verses on value, discipline, ownership, love, money, time, and the patterns people inherit without noticing. Built as a digital booklet first, then shaped for print, visualizers, and spoken-word campaign content.</p>
-          <div class="campaign-actions">
-            <a class="download" href="./assets/legacy-in-ink-the-final-frequency-booklet.pdf" target="_blank" rel="noopener">Read PDF</a>
-            <button id="shareLink" class="secondary" type="button">Copy Link</button>
-          </div>
-        </div>
-        <div class="campaign-media">
-          <img src="./assets/legacy-in-ink-paperback-multi-angle.jpg" alt="Legacy In Ink paperback mockup multi-angle view">
-        </div>
-      </section>
-
-    </section>
   </div>
 
   <script>
@@ -770,19 +753,6 @@
       if (event.key === "ArrowLeft") document.querySelector("#prev").click();
       if (event.key === "ArrowRight") document.querySelector("#next").click();
       if (event.key === "Home") document.querySelector("#cover").click();
-    });
-
-    document.querySelector("#shareLink")?.addEventListener("click", async () => {
-      const cleanUrl = `${window.location.origin}${window.location.pathname}`;
-      try {
-        await navigator.clipboard.writeText(cleanUrl);
-        document.querySelector("#shareLink").textContent = "Copied";
-        window.setTimeout(() => {
-          document.querySelector("#shareLink").textContent = "Copy Link";
-        }, 1400);
-      } catch {
-        window.prompt("Copy this link", cleanUrl);
-      }
     });
 
     render();
