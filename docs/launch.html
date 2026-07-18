@@ -197,6 +197,43 @@
       transform: translate(-1px, -1px);
     }
 
+    .nav-socials {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-inline-start: 6px;
+      padding-inline-start: 8px;
+      box-shadow: inset 1px 0 rgba(255, 255, 255, .14);
+    }
+
+    .site-nav .social-icon-link {
+      width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      padding: 0;
+      transition-property: color, background-color, transform;
+    }
+
+    .social-icon-link svg,
+    .footer-social-link svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      transition: transform .18s cubic-bezier(.2, 0, 0, 1);
+    }
+
+    .site-nav .social-icon-link:hover svg,
+    .site-nav .social-icon-link:focus-visible svg,
+    .footer-social-link:hover svg,
+    .footer-social-link:focus-visible svg {
+      transform: scale(1.08);
+    }
+
+    .site-nav .social-icon-link:active,
+    .footer-social-link:active {
+      transform: scale(.96);
+    }
+
     .site-nav .nav-cta:active,
     .button:active,
     .preorder-form button:active {
@@ -918,6 +955,48 @@
       color: white;
     }
 
+    .footer-actions {
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+    }
+
+    .footer-socials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .footer-social-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding-inline: 13px;
+      color: var(--paper-bright);
+      background: rgba(255, 255, 255, .07);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition-property: color, background-color, transform, box-shadow;
+      transition-duration: .18s;
+      transition-timing-function: cubic-bezier(.2, 0, 0, 1);
+    }
+
+    .footer-social-link:hover,
+    .footer-social-link:focus-visible {
+      color: white;
+      background: var(--red);
+      box-shadow: 3px 3px 0 rgba(255, 255, 255, .85);
+      outline: 0;
+      transform: translate(-1px, -1px);
+    }
+
     .mobile-reserve {
       display: none;
     }
@@ -944,7 +1023,7 @@
     }
 
     @media (max-width: 960px) {
-      .site-nav a:not(.nav-cta) {
+      .site-nav .nav-section {
         display: none;
       }
 
@@ -1022,10 +1101,21 @@
       }
 
       .site-nav .nav-cta {
-        min-height: 42px;
+        min-height: 44px;
         margin: 0;
         padding-inline: 12px;
         box-shadow: 3px 3px 0 white;
+      }
+
+      .nav-socials {
+        margin-inline-start: 0;
+        padding-inline-start: 0;
+        box-shadow: none;
+      }
+
+      .site-nav .social-icon-link {
+        width: 44px;
+        min-height: 44px;
       }
 
       .hero::before {
@@ -1138,6 +1228,14 @@
         justify-content: flex-start;
       }
 
+      .footer-actions {
+        justify-items: start;
+      }
+
+      .footer-socials {
+        justify-content: flex-start;
+      }
+
       .mobile-reserve {
         position: fixed;
         inset: auto 0 0;
@@ -1201,9 +1299,24 @@
         <span class="wordmark-text">InnerG Intel / Legacy In Ink</span>
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#story">The story</a>
-        <a href="#inside">Inside</a>
-        <a href="#preview">Preview</a>
+        <a class="nav-section" href="#story">The story</a>
+        <a class="nav-section" href="#inside">Inside</a>
+        <a class="nav-section" href="#preview">Preview</a>
+        <div class="nav-socials" aria-label="Follow InnerG Intel">
+          <a class="social-icon-link" href="https://www.youtube.com/channel/UCKd-UGfz3gEKCLysjoFFn0Q" target="_blank" rel="noopener noreferrer" aria-label="Watch The iNNERG READER on YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
+              <path d="M10 9l5 3-5 3z" fill="var(--ink)"></path>
+            </svg>
+          </a>
+          <a class="social-icon-link" href="https://www.instagram.com/even_my_hello_costs_/" target="_blank" rel="noopener noreferrer" aria-label="Follow even my hello costs on Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </a>
+        </div>
         <a class="nav-cta" href="#preorder">Reserve a copy</a>
       </nav>
     </div>
@@ -1372,11 +1485,30 @@
         <p class="footer-title">This is InnerG preserved.</p>
         <p class="footer-meta">Legacy In Ink: The Final Frequency / Nasirr Mayo</p>
       </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="./">Digital preview</a>
-        <a href="#inside">Inside the book</a>
-        <a href="#preorder">Reserve a copy</a>
-      </nav>
+      <div class="footer-actions">
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="./">Digital preview</a>
+          <a href="#inside">Inside the book</a>
+          <a href="#preorder">Reserve a copy</a>
+        </nav>
+        <nav class="footer-socials" aria-label="Social media">
+          <a class="footer-social-link" href="https://www.youtube.com/channel/UCKd-UGfz3gEKCLysjoFFn0Q" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
+              <path d="M10 9l5 3-5 3z" fill="var(--ink)"></path>
+            </svg>
+            <span>YouTube</span>
+          </a>
+          <a class="footer-social-link" href="https://www.instagram.com/even_my_hello_costs_/" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle>
+            </svg>
+            <span>Instagram</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </footer>
 
