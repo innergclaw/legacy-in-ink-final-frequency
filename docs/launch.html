@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#17120f">
-  <title>Legacy In Ink: The Final Frequency — Reserve the Paperback</title>
-  <meta name="description" content="Reserve Legacy In Ink: The Final Frequency, a 102-page paperback of poetry, pattern recognition, survival language, and principles by Nasirr Mayo.">
+  <title>Legacy In Ink: The Final Frequency — Pre Order the Paperback</title>
+  <meta name="description" content="Pre order Legacy In Ink: The Final Frequency, the first physical paperback edition of Nasirr Mayo’s poetry and spoken word book from InnerG Intel.">
   <meta property="og:title" content="Legacy In Ink: The Final Frequency">
-  <meta property="og:description" content="Some things were written to destroy us. Now, we write to restore us. Reserve the paperback by Nasirr Mayo.">
+  <meta property="og:description" content="Pre order the first physical paperback edition of Legacy In Ink: The Final Frequency by Nasirr Mayo.">
   <meta property="og:type" content="book">
   <meta property="og:image" content="./assets/photos/legacy-in-ink-real-book-01.jpg">
   <script>document.documentElement.classList.add("js");</script>
@@ -732,7 +732,7 @@
     }
 
     .preorder::before {
-      content: "RESERVE";
+      content: "PRE ORDER";
       position: absolute;
       inset: auto -2vw -8vw auto;
       color: rgba(255, 255, 255, .055);
@@ -791,11 +791,144 @@
       font-weight: 900;
     }
 
+    .preorder-stack {
+      display: grid;
+      gap: 28px;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-columns: minmax(160px, .72fr) minmax(0, 1fr);
+      gap: clamp(20px, 3vw, 32px);
+      align-items: stretch;
+      padding: clamp(18px, 3vw, 28px);
+      color: var(--ink);
+      background: var(--paper-bright);
+      box-shadow: 14px 14px 0 var(--ink), var(--shadow-lg);
+    }
+
+    .product-media {
+      min-height: 100%;
+      background: #e7d8be;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .18);
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      outline: 1px solid rgba(0, 0, 0, .1);
+      outline-offset: -1px;
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .product-kicker {
+      margin: 0 0 10px;
+      color: var(--red);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .product-details h3 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -.015em;
+      line-height: .9;
+      text-wrap: balance;
+      text-transform: uppercase;
+    }
+
+    .product-author {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: .95rem;
+      font-weight: 800;
+    }
+
+    .product-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: .8125rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .product-specs li {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f2eadb;
+      box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .16);
+    }
+
+    .product-card-button {
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+      padding: 0 20px;
+      color: var(--paper-bright);
+      background: var(--red);
+      box-shadow: 6px 6px 0 var(--ink);
+      font-size: .85rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition-property: transform, box-shadow, background-color;
+      transition-duration: .18s;
+      transition-timing-function: cubic-bezier(.2, 0, 0, 1);
+      user-select: none;
+    }
+
+    .product-card-button:hover,
+    .product-card-button:focus-visible {
+      background: var(--red-dark);
+      box-shadow: 8px 8px 0 var(--ink);
+      outline: 0;
+      transform: translate(-2px, -2px);
+    }
+
+    .button:active,
+    .product-card-button:active,
+    .preorder-form button:active {
+      transform: scale(.96);
+    }
+
+    .product-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
     .form-card {
       padding: clamp(24px, 4vw, 42px);
       color: var(--ink);
       background: var(--paper-bright);
-      box-shadow: 14px 14px 0 var(--ink), var(--shadow-lg);
+      box-shadow: 10px 10px 0 rgba(21, 19, 16, .82), var(--shadow-sm);
     }
 
     .form-card h3 {
@@ -1077,6 +1210,14 @@
       .preorder-grid {
         gap: 52px;
       }
+
+      .product-card {
+        grid-template-columns: 1fr;
+      }
+
+      .product-media img {
+        max-height: 520px;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1205,6 +1346,20 @@
         gap: 38px;
       }
 
+      .product-card {
+        padding: 16px;
+        box-shadow: 8px 8px 0 var(--ink), var(--shadow-lg);
+      }
+
+      .product-media img {
+        min-height: 260px;
+        max-height: 420px;
+      }
+
+      .product-specs {
+        grid-template-columns: 1fr;
+      }
+
       .preorder-form {
         grid-template-columns: 1fr;
       }
@@ -1301,7 +1456,7 @@
       <nav class="site-nav" aria-label="Primary navigation">
         <a class="nav-section" href="#story">The story</a>
         <a class="nav-section" href="#inside">Inside</a>
-        <a class="nav-section" href="#preview">Preview</a>
+        <a class="nav-section" href="#preview">Sample verses</a>
         <div class="nav-socials" aria-label="Follow InnerG Intel">
           <a class="social-icon-link" href="https://www.youtube.com/inntergintel" target="_blank" rel="noopener noreferrer" aria-label="Watch InnerG Intel on YouTube">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -1317,7 +1472,7 @@
             </svg>
           </a>
         </div>
-        <a class="nav-cta" href="#preorder">Reserve a copy</a>
+        <a class="nav-cta" href="#preorder">PRE ORDER NOW</a>
       </nav>
     </div>
   </header>
@@ -1326,12 +1481,12 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow" data-reveal>Poetry / spoken word / legacy</p>
+          <p class="eyebrow" data-reveal>First physical edition / pre orders open</p>
           <h1 id="hero-title" data-reveal data-reveal-delay="1">Legacy In Ink:<span class="accent">The Final Frequency</span></h1>
-          <p class="hero-lede" data-reveal data-reveal-delay="2">A field guide for seeing the pattern, breaking inherited loops, and turning raw life lessons into principles that can outlive you.</p>
+          <p class="hero-lede" data-reveal data-reveal-delay="2">The paperback is here. Pre order the first physical edition and secure your place in the first drop of <em>Legacy In Ink: The Final Frequency</em>.</p>
           <div class="hero-actions" data-reveal data-reveal-delay="2">
-            <a class="button button-primary" href="#preorder">Reserve the paperback <span class="button-arrow" aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="./">Read the free preview</a>
+            <a class="button button-primary" href="#preorder">PRE ORDER NOW <span class="button-arrow" aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#inside">See what is inside</a>
           </div>
           <ul class="book-facts" aria-label="Book details" data-reveal data-reveal-delay="2">
             <li>102 pages</li>
@@ -1343,7 +1498,7 @@
 
         <div class="hero-art" data-reveal data-reveal-delay="1">
           <img src="./assets/photos/legacy-in-ink-real-book-01.jpg" alt="Real paperback copy of Legacy In Ink: The Final Frequency showing the front cover" width="1350" height="1800">
-          <div class="first-edition-tag">First edition reservation</div>
+          <div class="first-edition-tag">First edition preorder</div>
         </div>
       </div>
     </section>
@@ -1422,10 +1577,10 @@
     <section class="section preview" id="preview" aria-labelledby="preview-title">
       <div class="container preview-grid">
         <div class="preview-copy" data-reveal>
-          <p class="eyebrow">Read before you reserve</p>
-          <h2 id="preview-title">Open the frequency.</h2>
-          <p>The real paperback opens with the full table of contents. The digital reader includes three selected verses: <em>Feelings Heal. Principles Stand.</em>, <em>Stop Borrowing Love</em>, and <em>Own What Cannot Be Taken</em>.</p>
-          <a class="button button-primary" href="./">Read the free preview <span class="button-arrow" aria-hidden="true">→</span></a>
+          <p class="eyebrow">Sample verses</p>
+          <h2 id="preview-title">Preview the frequency.</h2>
+          <p>The physical book is the main drop. If you want a quick taste before checkout, the digital reader includes three selected verses from the full 16-verse paperback.</p>
+          <a class="button button-secondary" href="./">View sample verses <span class="button-arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="preview-cover" data-reveal data-reveal-delay="1">
           <img src="./assets/photos/legacy-in-ink-real-book-03.jpg" alt="Real paperback copy of Legacy In Ink: The Final Frequency opened to the table of contents" width="1350" height="1800">
@@ -1436,19 +1591,39 @@
     <section class="section preorder" id="preorder" aria-labelledby="preorder-title">
       <div class="container preorder-grid">
         <div class="preorder-copy" data-reveal>
-          <p class="eyebrow" style="color: var(--ink);">First edition reservation</p>
-          <h2 id="preorder-title">Put your name on the first drop.</h2>
-          <p>Reserve your paperback now and you’ll be contacted first when ordering opens. Final price, shipping, and payment details will be shared before you commit.</p>
+          <p class="eyebrow" style="color: var(--ink);">First edition preorder</p>
+          <h2 id="preorder-title">Pre order the paperback before the first drop closes.</h2>
+          <p>This is the physical edition built for the people who want the book in hand, not just a preview on screen. Pre ordering helps lock in the first run and makes sure you are first in line when checkout opens.</p>
           <ul class="preorder-promise">
-            <li>No payment collected today</li>
-            <li>First notice when copies are available</li>
-            <li>One email to confirm before purchase</li>
+            <li>First access to the initial paperback run</li>
+            <li>Secure checkout path for the paperback</li>
+            <li>Connected form remains as a preorder backup list</li>
           </ul>
         </div>
 
-        <div class="form-card" data-reveal data-reveal-delay="1">
-          <h3>Reserve your copy</h3>
-          <p>Tell us where to send your first-edition notice.</p>
+        <div class="preorder-stack">
+          <article class="product-card" data-reveal data-reveal-delay="1" aria-label="Legacy In Ink paperback preorder product card">
+            <div class="product-media">
+              <img src="./assets/photos/legacy-in-ink-real-book-01.jpg" alt="Front cover of the real Legacy In Ink paperback" width="1350" height="1800">
+            </div>
+            <div class="product-details">
+              <p class="product-kicker">First edition paperback</p>
+              <h3>Legacy In Ink: The Final Frequency</h3>
+              <p class="product-author">By Nasirr Mayo / InnerG Intel</p>
+              <ul class="product-specs" aria-label="Paperback details">
+                <li>102 pages</li>
+                <li>6 × 9 format</li>
+                <li>16 verses</li>
+                <li>Price TBA</li>
+              </ul>
+              <a class="product-card-button stripe-preorder-link" href="#preorderForm" data-stripe-link-pending="true">PRE ORDER NOW</a>
+              <p class="product-note">Checkout is being connected. Until then, this sends readers to the preorder list below.</p>
+            </div>
+          </article>
+
+          <div class="form-card" data-reveal data-reveal-delay="2">
+            <h3>Join the preorder list</h3>
+            <p>Use this connected form as the backup path for readers who want first-drop updates before checkout is live.</p>
           <form class="preorder-form" id="preorderForm" action="https://formspree.io/f/mwvdqwle" method="POST">
             <div class="field">
               <label for="nameInput">Name</label>
@@ -1467,13 +1642,14 @@
               <label for="emailInput">Email address</label>
               <input id="emailInput" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
             </div>
-            <input type="hidden" name="_subject" value="Legacy In Ink first-edition reservation">
+            <input type="hidden" name="_subject" value="Legacy In Ink first-edition preorder">
             <input type="hidden" name="source" value="Legacy In Ink preorder landing page">
-            <input type="hidden" name="request_type" value="Paperback preorder reservation">
-            <button type="submit">Reserve my paperback</button>
+            <input type="hidden" name="request_type" value="Paperback preorder interest">
+            <button type="submit">Join preorder list</button>
             <div class="form-note" id="formNote" role="status" aria-live="polite"></div>
           </form>
-          <p class="privacy-note">This is a reservation request, not a charge. Your information is used only for Legacy In Ink release updates.</p>
+          <p class="privacy-note">This form does not collect payment. Your information is used only for Legacy In Ink release updates.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1487,9 +1663,9 @@
       </div>
       <div class="footer-actions">
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="./">Digital preview</a>
+          <a href="./">Sample verses</a>
           <a href="#inside">Inside the book</a>
-          <a href="#preorder">Reserve a copy</a>
+          <a href="#preorder">PRE ORDER NOW</a>
         </nav>
         <nav class="footer-socials" aria-label="Social media">
           <a class="footer-social-link" href="https://www.youtube.com/inntergintel" target="_blank" rel="noopener noreferrer">
@@ -1512,7 +1688,7 @@
     </div>
   </footer>
 
-  <a class="mobile-reserve" href="#preorder"><span>Reserve the paperback</span></a>
+  <a class="mobile-reserve" href="#preorder"><span>PRE ORDER NOW</span></a>
 
   <script>
     const revealItems = document.querySelectorAll("[data-reveal]");
@@ -1539,9 +1715,9 @@
       const submitButton = preorderForm.querySelector("button[type='submit']");
       const originalLabel = submitButton.textContent;
 
-      formNote.textContent = "Saving your reservation…";
+      formNote.textContent = "Saving your preorder request…";
       submitButton.disabled = true;
-      submitButton.textContent = "Reserving…";
+      submitButton.textContent = "Saving…";
 
       try {
         const response = await fetch(preorderForm.action, {
@@ -1551,13 +1727,13 @@
         });
 
         if (!response.ok) {
-          throw new Error("Reservation submission failed");
+          throw new Error("Preorder submission failed");
         }
 
         preorderForm.reset();
-        formNote.textContent = "You’re on the first-edition reservation list. Watch your inbox.";
+        formNote.textContent = "You’re on the first-edition preorder list. Watch your inbox.";
       } catch (error) {
-        formNote.textContent = "We couldn’t save that here. Email nasirr@innergintel.org to reserve your copy.";
+        formNote.textContent = "We couldn’t save that here. Email nasirr@innergintel.org to join the preorder list.";
       } finally {
         submitButton.disabled = false;
         submitButton.textContent = originalLabel;
