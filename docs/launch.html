@@ -704,6 +704,131 @@
       text-transform: uppercase;
     }
 
+    .book-carousel {
+      color: var(--paper-bright);
+      background: var(--ink);
+      padding-block: clamp(76px, 10vw, 132px);
+    }
+
+    .book-carousel-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: clamp(28px, 5vw, 54px);
+    }
+
+    .book-carousel-head h2 {
+      max-width: 700px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: var(--step-3);
+      letter-spacing: -.02em;
+      line-height: .92;
+      text-transform: uppercase;
+    }
+
+    .book-carousel-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, .85fr);
+      gap: clamp(28px, 6vw, 92px);
+      align-items: center;
+    }
+
+    .book-carousel-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #151515;
+      box-shadow: 12px 12px 0 var(--red);
+    }
+
+    .book-carousel-slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: translateX(16px) scale(.985);
+      transition: opacity 280ms ease-out, transform 420ms cubic-bezier(.23, 1, .32, 1);
+      pointer-events: none;
+    }
+
+    .book-carousel-slide.is-active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .book-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .book-carousel-copy {
+      min-height: 190px;
+    }
+
+    .book-carousel-copy [data-carousel-copy] {
+      display: none;
+    }
+
+    .book-carousel-copy [data-carousel-copy].is-active {
+      display: block;
+      animation: carousel-copy-in 360ms cubic-bezier(.23, 1, .32, 1) both;
+    }
+
+    .book-carousel-copy h3 {
+      margin: 0 0 14px;
+      color: var(--paper-bright);
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1;
+    }
+
+    .book-carousel-copy p { margin: 0; color: var(--cream-muted); }
+
+    .book-carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 34px;
+    }
+
+    .book-carousel-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #777;
+      cursor: pointer;
+      transition: transform 180ms ease-out, background-color 180ms ease-out;
+    }
+
+    .book-carousel-dot:hover { transform: scale(1.25); }
+    .book-carousel-dot.is-active { background: var(--red); transform: scale(1.35); }
+    .book-carousel-dot:focus-visible { outline: 2px solid var(--paper-bright); outline-offset: 5px; }
+
+    @keyframes carousel-copy-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .book-carousel-slide,
+      .book-carousel-copy [data-carousel-copy],
+      .book-carousel-dot { transition: none; animation: none; }
+    }
+
+    @media (max-width: 720px) {
+      .book-carousel-head { display: block; }
+      .book-carousel-head > .eyebrow { margin-top: 20px; }
+      .book-carousel-stage { grid-template-columns: 1fr; }
+      .book-carousel-visual { box-shadow: 8px 8px 0 var(--red); }
+    }
+
     .section {
       padding-block: clamp(78px, 10vw, 132px);
     }
@@ -1607,6 +1732,53 @@
       </div>
     </section>
 
+    <section class="book-carousel" aria-labelledby="carousel-title">
+      <div class="container">
+        <div class="book-carousel-head" data-reveal>
+          <div>
+            <p class="eyebrow" style="color: var(--red);">Turn the page</p>
+            <h2 id="carousel-title">See the book in sequence.</h2>
+          </div>
+          <p class="eyebrow" style="color: var(--cream-muted);">01 / 03</p>
+        </div>
+        <div class="book-carousel-stage">
+          <div class="book-carousel-visual" aria-live="polite">
+            <figure class="book-carousel-slide is-active" data-carousel-slide="0">
+              <img src="./assets/photos/legacy-in-ink-real-book-01.jpg" alt="The front cover of Legacy In Ink: The Final Frequency">
+            </figure>
+            <figure class="book-carousel-slide" data-carousel-slide="1">
+              <img src="./assets/photos/legacy-in-ink-real-book-02.jpg" alt="The back cover of Legacy In Ink: The Final Frequency">
+            </figure>
+            <figure class="book-carousel-slide" data-carousel-slide="2">
+              <img src="./assets/photos/legacy-in-ink-real-book-03.jpg" alt="Inside pages of Legacy In Ink: The Final Frequency">
+            </figure>
+          </div>
+          <div class="book-carousel-copy">
+            <div data-carousel-copy="0" class="is-active">
+              <p class="eyebrow" style="color: var(--red);">01 / The cover</p>
+              <h3>A physical record of the frequency.</h3>
+              <p>The first edition is made to be held, revisited, and carried forward.</p>
+            </div>
+            <div data-carousel-copy="1">
+              <p class="eyebrow" style="color: var(--red);">02 / The back cover</p>
+              <h3>What you survive becomes language.</h3>
+              <p>Sixteen verses move through discipline, healing, value, time, love, and identity.</p>
+            </div>
+            <div data-carousel-copy="2">
+              <p class="eyebrow" style="color: var(--red);">03 / Inside the book</p>
+              <h3>Read it slowly. Let it find you.</h3>
+              <p>Each page leaves a pattern, a principle, and a question worth sitting with.</p>
+            </div>
+          </div>
+        </div>
+        <div class="book-carousel-dots" role="tablist" aria-label="Book photo carousel">
+          <button class="book-carousel-dot is-active" type="button" role="tab" aria-label="Show front cover" aria-selected="true" data-carousel-dot="0"></button>
+          <button class="book-carousel-dot" type="button" role="tab" aria-label="Show back cover" aria-selected="false" data-carousel-dot="1"></button>
+          <button class="book-carousel-dot" type="button" role="tab" aria-label="Show inside pages" aria-selected="false" data-carousel-dot="2"></button>
+        </div>
+      </div>
+    </section>
+
     <section class="section inside" id="inside" aria-labelledby="inside-title">
       <div class="container">
         <div class="section-heading" data-reveal>
@@ -1754,6 +1926,24 @@
       window.addEventListener("resize", requestQuotePaint);
       paintQuotes();
     }
+
+    const carouselSlides = [...document.querySelectorAll("[data-carousel-slide]")];
+    const carouselCopies = [...document.querySelectorAll("[data-carousel-copy]")];
+    const carouselDots = [...document.querySelectorAll("[data-carousel-dot]")];
+    const carouselStepLabel = document.querySelector(".book-carousel-head .eyebrow:last-child");
+
+    const setCarouselSlide = (index) => {
+      carouselSlides.forEach((slide, slideIndex) => slide.classList.toggle("is-active", slideIndex === index));
+      carouselCopies.forEach((copy, copyIndex) => copy.classList.toggle("is-active", copyIndex === index));
+      carouselDots.forEach((dot, dotIndex) => {
+        const active = dotIndex === index;
+        dot.classList.toggle("is-active", active);
+        dot.setAttribute("aria-selected", String(active));
+      });
+      if (carouselStepLabel) carouselStepLabel.textContent = `${String(index + 1).padStart(2, "0")} / 03`;
+    };
+
+    carouselDots.forEach((dot, index) => dot.addEventListener("click", () => setCarouselSlide(index)));
 
     if ("IntersectionObserver" in window) {
       const revealObserver = new IntersectionObserver((entries) => {
