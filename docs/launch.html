@@ -652,6 +652,41 @@
       text-wrap: balance;
     }
 
+    .manifesto blockquote.scroll-quote {
+      position: relative;
+      min-height: 2.35em;
+    }
+
+    .scroll-quote-text { display: inline; }
+
+    .scroll-quote-caret {
+      display: inline-block;
+      width: .08em;
+      height: .9em;
+      margin-left: .12em;
+      vertical-align: -.08em;
+      background: var(--red);
+      opacity: 0;
+      transform: scaleY(.6);
+      transform-origin: center;
+      transition: opacity 180ms ease-out, transform 180ms ease-out;
+    }
+
+    .scroll-quote.is-typing .scroll-quote-caret {
+      opacity: 1;
+      transform: scaleY(1);
+      animation: quote-caret-blink 900ms steps(1, end) infinite;
+    }
+
+    @keyframes quote-caret-blink {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: .18; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-quote-caret { display: none; }
+    }
+
     .manifesto blockquote strong {
       color: #e23d35;
       font-weight: inherit;
@@ -1532,7 +1567,7 @@
       <div class="container manifesto-grid">
         <div class="section-number" aria-hidden="true" data-reveal>01</div>
         <div data-reveal data-reveal-delay="1">
-          <blockquote>“Some things were written to <strong>destroy us.</strong> Now, we write to <strong>restore us.</strong>”</blockquote>
+          <blockquote class="scroll-quote" data-scroll-quote>“Some things were written to <strong>destroy us.</strong> Now, we write to <strong>restore us.</strong>”</blockquote>
           <cite>Nasirr Mayo / Legacy In Ink</cite>
         </div>
       </div>
@@ -1686,6 +1721,39 @@
 
   <script>
     const revealItems = document.querySelectorAll("[data-reveal]");
+    const scrollQuotes = [...document.querySelectorAll("[data-scroll-quote]")];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (scrollQuotes.length) {
+      scrollQuotes.forEach((quote) => {
+        const source = quote.textContent.trim();
+        quote.setAttribute("aria-label", source);
+        quote.innerHTML = '<span class="scroll-quote-text"></span><span class="scroll-quote-caret" aria-hidden="true"></span>';
+        quote.dataset.quoteSource = source;
+      });
+
+      const paintQuotes = () => {
+        scrollQuotes.forEach((quote) => {
+          const section = quote.closest(".manifesto");
+          const rect = section.getBoundingClientRect();
+          const travel = Math.max(rect.height + window.innerHeight, 1);
+          const progress = Math.max(0, Math.min(1, (window.innerHeight * .78 - rect.top) / travel));
+          const typedProgress = reducedMotion ? 1 : Math.min(1, progress / .52);
+          const source = quote.dataset.quoteSource;
+          quote.querySelector(".scroll-quote-text").textContent = source.slice(0, Math.round(source.length * typedProgress));
+          quote.style.opacity = reducedMotion ? "1" : String(Math.max(.08, 1 - Math.max(0, progress - .52) / .48));
+          quote.classList.toggle("is-typing", !reducedMotion && progress > 0 && progress < .58);
+        });
+      };
+
+      let quoteFrame = 0;
+      const requestQuotePaint = () => {
+        if (!quoteFrame) quoteFrame = requestAnimationFrame(() => { quoteFrame = 0; paintQuotes(); });
+      };
+      window.addEventListener("scroll", requestQuotePaint, { passive: true });
+      window.addEventListener("resize", requestQuotePaint);
+      paintQuotes();
+    }
 
     if ("IntersectionObserver" in window) {
       const revealObserver = new IntersectionObserver((entries) => {
