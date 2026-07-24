@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legacy In Ink: The Final Frequency</title>
+  <style>
+    :root {
+      --paper: #efe5cf;
+      --ink: #121210;
+      --red: #a41814;
+      --muted: #6b5d4e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(164, 24, 20, .22), transparent 28%),
+        linear-gradient(135deg, #080807, #1a1411 48%, #090908);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+      mix-blend-mode: overlay;
+    }
+    .shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 24px clamp(14px, 3vw, 38px) 38px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      display: grid;
+      gap: 4px;
+    }
+    .eyebrow {
+      color: #ffefdf;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+    }
+    h1 {
+      margin: 0;
+      max-width: 620px;
+      color: white;
+      font-size: clamp(28px, 5vw, 58px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    button, a.download {
+      border: 2px solid var(--paper);
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 44px;
+      padding: 0 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 5px 5px 0 rgba(164, 24, 20, .85);
+    }
+    button:hover, a.download:hover { transform: translate(-1px, -1px); }
+    .reader {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: calc(100vh - 190px);
+      perspective: 1400px;
+    }
+    .book {
+      position: relative;
+      width: min(76vh, 88vw);
+      aspect-ratio: 2 / 3;
+      filter: drop-shadow(0 32px 42px rgba(0, 0, 0, .46));
+    }
+    .page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.2);
+      background: var(--paper);
+      transform-origin: left center;
+      transition: transform .5s ease, opacity .35s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .page.active {
+      opacity: 1;
+      transform: rotateY(0deg);
+      z-index: 4;
+    }
+    .page.prev {
+      opacity: .22;
+      transform: rotateY(-22deg) translateX(-6%);
+      z-index: 1;
+    }
+    .page.next {
+      opacity: .12;
+      transform: translateX(4%) scale(.98);
+      z-index: 0;
+    }
+    .meta {
+      margin-top: 14px;
+      text-align: center;
+      color: #f4e8d4;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .progress {
+      height: 8px;
+      width: min(520px, 84vw);
+      background: rgba(239, 229, 207, .16);
+      border: 1px solid rgba(239, 229, 207, .35);
+      margin: 14px auto 0;
+    }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: var(--red);
+      transition: width .25s ease;
+    }
+    @media (max-width: 760px) {
+      header { align-items: flex-start; flex-direction: column; }
+      .controls { justify-content: flex-start; }
+      .reader { min-height: auto; padding-top: 12px; }
+      .book { width: min(78vh, 96vw); }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div class="brand">
+        <h1>Legacy In Ink:<br>The Final Frequency</h1>
+      </div>
+      <nav class="controls" aria-label="Book controls">
+        <button id="prev" type="button">Previous</button>
+        <button id="next" type="button">Next</button>
+        <a class="download" href="../legacy-in-ink-the-final-frequency-booklet.pdf">PDF</a>
+      </nav>
+    </header>
+    <section class="reader" aria-label="Digital flipbook">
+      <div class="book" id="book">
+        <img class="page" src="../pages/page-01.jpg" alt="Booklet page 1" data-page="1">
+        <img class="page" src="../pages/page-02.jpg" alt="Booklet page 2" data-page="2">
+        <img class="page" src="../pages/page-03.jpg" alt="Booklet page 3" data-page="3">
+        <img class="page" src="../pages/page-04.jpg" alt="Booklet page 4" data-page="4">
+        <img class="page" src="../pages/page-05.jpg" alt="Booklet page 5" data-page="5">
+        <img class="page" src="../pages/page-06.jpg" alt="Booklet page 6" data-page="6">
+        <img class="page" src="../pages/page-07.jpg" alt="Booklet page 7" data-page="7">
+        <img class="page" src="../pages/page-08.jpg" alt="Booklet page 8" data-page="8">
+        <img class="page" src="../pages/page-09.jpg" alt="Booklet page 9" data-page="9">
+        <img class="page" src="../pages/page-10.jpg" alt="Booklet page 10" data-page="10">
+        <img class="page" src="../pages/page-11.jpg" alt="Booklet page 11" data-page="11">
+        <img class="page" src="../pages/page-12.jpg" alt="Booklet page 12" data-page="12">
+        <img class="page" src="../pages/page-13.jpg" alt="Booklet page 13" data-page="13">
+        <img class="page" src="../pages/page-14.jpg" alt="Booklet page 14" data-page="14">
+        <img class="page" src="../pages/page-15.jpg" alt="Booklet page 15" data-page="15">
+        <img class="page" src="../pages/page-16.jpg" alt="Booklet page 16" data-page="16">
+        <img class="page" src="../pages/page-17.jpg" alt="Booklet page 17" data-page="17">
+        <img class="page" src="../pages/page-18.jpg" alt="Booklet page 18" data-page="18">
+        <img class="page" src="../pages/page-19.jpg" alt="Booklet page 19" data-page="19">
+        <img class="page" src="../pages/page-20.jpg" alt="Booklet page 20" data-page="20">
+        <img class="page" src="../pages/page-21.jpg" alt="Booklet page 21" data-page="21">
+        <img class="page" src="../pages/page-22.jpg" alt="Booklet page 22" data-page="22">
+        <img class="page" src="../pages/page-23.jpg" alt="Booklet page 23" data-page="23">
+        <img class="page" src="../pages/page-24.jpg" alt="Booklet page 24" data-page="24">
+        <img class="page" src="../pages/page-25.jpg" alt="Booklet page 25" data-page="25">
+        <img class="page" src="../pages/page-26.jpg" alt="Booklet page 26" data-page="26">
+        <img class="page" src="../pages/page-27.jpg" alt="Booklet page 27" data-page="27">
+        <img class="page" src="../pages/page-28.jpg" alt="Booklet page 28" data-page="28">
+        <img class="page" src="../pages/page-29.jpg" alt="Booklet page 29" data-page="29">
+        <img class="page" src="../pages/page-30.jpg" alt="Booklet page 30" data-page="30">
+        <img class="page" src="../pages/page-31.jpg" alt="Booklet page 31" data-page="31">
+        <img class="page" src="../pages/page-32.jpg" alt="Booklet page 32" data-page="32">
+        <img class="page" src="../pages/page-33.jpg" alt="Booklet page 33" data-page="33">
+        <img class="page" src="../pages/page-34.jpg" alt="Booklet page 34" data-page="34">
+        <img class="page" src="../pages/page-35.jpg" alt="Booklet page 35" data-page="35">
+        <img class="page" src="../pages/page-36.jpg" alt="Booklet page 36" data-page="36">
+        <img class="page" src="../pages/page-37.jpg" alt="Booklet page 37" data-page="37">
+        <img class="page" src="../pages/page-38.jpg" alt="Booklet page 38" data-page="38">
+        <img class="page" src="../pages/page-39.jpg" alt="Booklet page 39" data-page="39">
+        <img class="page" src="../pages/page-40.jpg" alt="Booklet page 40" data-page="40">
+        <img class="page" src="../pages/page-41.jpg" alt="Booklet page 41" data-page="41">
+        <img class="page" src="../pages/page-42.jpg" alt="Booklet page 42" data-page="42">
+        <img class="page" src="../pages/page-43.jpg" alt="Booklet page 43" data-page="43">
+        <img class="page" src="../pages/page-44.jpg" alt="Booklet page 44" data-page="44">
+        <img class="page" src="../pages/page-45.jpg" alt="Booklet page 45" data-page="45">
+        <img class="page" src="../pages/page-46.jpg" alt="Booklet page 46" data-page="46">
+        <img class="page" src="../pages/page-47.jpg" alt="Booklet page 47" data-page="47">
+        <img class="page" src="../pages/page-48.jpg" alt="Booklet page 48" data-page="48">
+        <img class="page" src="../pages/page-49.jpg" alt="Booklet page 49" data-page="49">
+        <img class="page" src="../pages/page-50.jpg" alt="Booklet page 50" data-page="50">
+        <img class="page" src="../pages/page-51.jpg" alt="Booklet page 51" data-page="51">
+        <img class="page" src="../pages/page-52.jpg" alt="Booklet page 52" data-page="52">
+        <img class="page" src="../pages/page-53.jpg" alt="Booklet page 53" data-page="53">
+        <img class="page" src="../pages/page-54.jpg" alt="Booklet page 54" data-page="54">
+        <img class="page" src="../pages/page-55.jpg" alt="Booklet page 55" data-page="55">
+        <img class="page" src="../pages/page-56.jpg" alt="Booklet page 56" data-page="56">
+        <img class="page" src="../pages/page-57.jpg" alt="Booklet page 57" data-page="57">
+        <img class="page" src="../pages/page-58.jpg" alt="Booklet page 58" data-page="58">
+        <img class="page" src="../pages/page-59.jpg" alt="Booklet page 59" data-page="59">
+        <img class="page" src="../pages/page-60.jpg" alt="Booklet page 60" data-page="60">
+        <img class="page" src="../pages/page-61.jpg" alt="Booklet page 61" data-page="61">
+        <img class="page" src="../pages/page-62.jpg" alt="Booklet page 62" data-page="62">
+        <img class="page" src="../pages/page-63.jpg" alt="Booklet page 63" data-page="63">
+        <img class="page" src="../pages/page-64.jpg" alt="Booklet page 64" data-page="64">
+        <img class="page" src="../pages/page-65.jpg" alt="Booklet page 65" data-page="65">
+        <img class="page" src="../pages/page-66.jpg" alt="Booklet page 66" data-page="66">
+        <img class="page" src="../pages/page-67.jpg" alt="Booklet page 67" data-page="67">
+        <img class="page" src="../pages/page-68.jpg" alt="Booklet page 68" data-page="68">
+        <img class="page" src="../pages/page-69.jpg" alt="Booklet page 69" data-page="69">
+        <img class="page" src="../pages/page-70.jpg" alt="Booklet page 70" data-page="70">
+        <img class="page" src="../pages/page-71.jpg" alt="Booklet page 71" data-page="71">
+        <img class="page" src="../pages/page-72.jpg" alt="Booklet page 72" data-page="72">
+        <img class="page" src="../pages/page-73.jpg" alt="Booklet page 73" data-page="73">
+        <img class="page" src="../pages/page-74.jpg" alt="Booklet page 74" data-page="74">
+        <img class="page" src="../pages/page-75.jpg" alt="Booklet page 75" data-page="75">
+        <img class="page" src="../pages/page-76.jpg" alt="Booklet page 76" data-page="76">
+        <img class="page" src="../pages/page-77.jpg" alt="Booklet page 77" data-page="77">
+        <img class="page" src="../pages/page-78.jpg" alt="Booklet page 78" data-page="78">
+        <img class="page" src="../pages/page-79.jpg" alt="Booklet page 79" data-page="79">
+        <img class="page" src="../pages/page-80.jpg" alt="Booklet page 80" data-page="80">
+        <img class="page" src="../pages/page-81.jpg" alt="Booklet page 81" data-page="81">
+        <img class="page" src="../pages/page-82.jpg" alt="Booklet page 82" data-page="82">
+        <img class="page" src="../pages/page-83.jpg" alt="Booklet page 83" data-page="83">
+        <img class="page" src="../pages/page-84.jpg" alt="Booklet page 84" data-page="84">
+        <img class="page" src="../pages/page-85.jpg" alt="Booklet page 85" data-page="85">
+        <img class="page" src="../pages/page-86.jpg" alt="Booklet page 86" data-page="86">
+        <img class="page" src="../pages/page-87.jpg" alt="Booklet page 87" data-page="87">
+        <img class="page" src="../pages/page-88.jpg" alt="Booklet page 88" data-page="88">
+        <img class="page" src="../pages/page-89.jpg" alt="Booklet page 89" data-page="89">
+        <img class="page" src="../pages/page-90.jpg" alt="Booklet page 90" data-page="90">
+        <img class="page" src="../pages/page-91.jpg" alt="Booklet page 91" data-page="91">
+        <img class="page" src="../pages/page-92.jpg" alt="Booklet page 92" data-page="92">
+        <img class="page" src="../pages/page-93.jpg" alt="Booklet page 93" data-page="93">
+        <img class="page" src="../pages/page-94.jpg" alt="Booklet page 94" data-page="94">
+        <img class="page" src="../pages/page-95.jpg" alt="Booklet page 95" data-page="95">
+        <img class="page" src="../pages/page-96.jpg" alt="Booklet page 96" data-page="96">
+        <img class="page" src="../pages/page-97.jpg" alt="Booklet page 97" data-page="97">
+        <img class="page" src="../pages/page-98.jpg" alt="Booklet page 98" data-page="98">
+        <img class="page" src="../pages/page-99.jpg" alt="Booklet page 99" data-page="99">
+        <img class="page" src="../pages/page-100.jpg" alt="Booklet page 100" data-page="100">
+        <img class="page" src="../pages/page-101.jpg" alt="Booklet page 101" data-page="101">
+        <img class="page" src="../pages/page-102.jpg" alt="Booklet page 102" data-page="102">
+        <img class="page" src="../pages/page-103.jpg" alt="Booklet page 103" data-page="103">
+      </div>
+      <div class="meta"><span id="counter">Page 1 / 103</span></div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+    </section>
+  </main>
+  <script>
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const counter = document.querySelector("#counter");
+    const bar = document.querySelector("#bar");
+    let current = 0;
+
+    function render() {
+      pages.forEach((page, index) => {
+        page.classList.toggle("active", index === current);
+        page.classList.toggle("prev", index === current - 1);
+        page.classList.toggle("next", index === current + 1);
+      });
+      counter.textContent = `Page ${current + 1} / ${pages.length}`;
+      bar.style.width = `${((current + 1) / pages.length) * 100}%`;
+    }
+
+    document.querySelector("#prev").addEventListener("click", () => {
+      current = Math.max(0, current - 1);
+      render();
+    });
+    document.querySelector("#next").addEventListener("click", () => {
+      current = Math.min(pages.length - 1, current + 1);
+      render();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") document.querySelector("#prev").click();
+      if (event.key === "ArrowRight") document.querySelector("#next").click();
+    });
+    document.querySelector("#book").addEventListener("click", () => {
+      current = Math.min(pages.length - 1, current + 1);
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
