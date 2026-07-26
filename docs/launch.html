@@ -11,7 +11,6 @@
   <meta property="og:type" content="book">
   <meta property="og:image" content="./assets/photos/legacy-in-ink-real-book-01.jpg">
   <script>document.documentElement.classList.add("js");</script>
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <style>
     :root {
       --paper: #f3ead8;
@@ -1061,32 +1060,6 @@
       box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .16);
     }
 
-    .stripe-checkout {
-      display: grid;
-      gap: 12px;
-      justify-items: stretch;
-      margin-top: 24px;
-      padding: 16px;
-      background: #f2eadb;
-      box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .16), 0 8px 24px rgba(21, 19, 16, .08);
-    }
-
-    .stripe-checkout-label {
-      margin: 0;
-      color: var(--muted);
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    .stripe-checkout stripe-buy-button {
-      display: block;
-      width: 100%;
-      min-height: 48px;
-    }
-
     .product-card-button {
       min-height: 58px;
       display: inline-flex;
@@ -1109,7 +1082,7 @@
       user-select: none;
     }
 
-    .product-card-button.stripe-purchase-link {
+    .product-card-button.payment-link {
       margin-top: 14px;
     }
 
@@ -1707,14 +1680,7 @@
                 <li>16 verses</li>
                 <li>First edition</li>
               </ul>
-              <div class="stripe-checkout" aria-label="Secure Stripe checkout">
-                <p class="stripe-checkout-label">Secure checkout powered by Stripe</p>
-                <stripe-buy-button
-                  buy-button-id="buy_btn_1TxG9MQPiPou53Wcexzkxj0Z"
-                  publishable-key="pk_live_51T4DFIQPiPou53WcJhm0YLHizG8YCCY6EGdEoPO90kW3bRj3yy1q1t2ZKYXDsLj2udLk95FzcmbPEoFIu8PX9Yu700jJkBPWZ3"
-                ></stripe-buy-button>
-              </div>
-              <a class="product-card-button stripe-purchase-link" href="https://buy.stripe.com/14A4gBesDcSB3T0gOvao81o" target="_blank" rel="noopener noreferrer">BUY NOW</a>
+              <a class="product-card-button payment-link" href="https://buy.stripe.com/14A4gBesDcSB3T0gOvao81o" target="_blank" rel="noopener noreferrer">BUY NOW</a>
             </div>
           </article>
         </div>
