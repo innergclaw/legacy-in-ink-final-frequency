@@ -11,6 +11,7 @@
   <meta property="og:type" content="book">
   <meta property="og:image" content="./assets/photos/legacy-in-ink-real-book-01.jpg">
   <script>document.documentElement.classList.add("js");</script>
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <style>
     :root {
       --paper: #f3ead8;
@@ -1060,6 +1061,32 @@
       box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .16);
     }
 
+    .stripe-checkout {
+      display: grid;
+      gap: 12px;
+      justify-items: stretch;
+      margin-top: 24px;
+      padding: 16px;
+      background: #f2eadb;
+      box-shadow: inset 0 0 0 1px rgba(21, 19, 16, .16), 0 8px 24px rgba(21, 19, 16, .08);
+    }
+
+    .stripe-checkout-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .stripe-checkout stripe-buy-button {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+    }
+
     .product-card-button {
       min-height: 58px;
       display: inline-flex;
@@ -1080,6 +1107,10 @@
       transition-duration: .18s;
       transition-timing-function: cubic-bezier(.2, 0, 0, 1);
       user-select: none;
+    }
+
+    .product-card-button.stripe-purchase-link {
+      margin-top: 14px;
     }
 
     .product-card-button:hover,
@@ -1518,7 +1549,7 @@
         <a class="nav-section" href="#inside">Inside</a>
         <a class="nav-section" href="#preview">Sample verses</a>
         <div class="nav-socials" aria-label="Follow InnerG Intel">
-          <a class="social-icon-link" href="https://www.youtube.com/inntergintel" target="_blank" rel="noopener noreferrer" aria-label="Watch InnerG Intel on YouTube">
+          <a class="social-icon-link" href="https://www.youtube.com/@innergintel" target="_blank" rel="noopener noreferrer" aria-label="Watch InnerG Intel on YouTube">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
               <path d="M10 9l5 3-5 3z" fill="var(--ink)"></path>
@@ -1549,7 +1580,7 @@
             <a class="button button-secondary" href="#inside">See what is inside</a>
           </div>
           <ul class="book-facts" aria-label="Book details" data-reveal data-reveal-delay="2">
-            <li>102 pages</li>
+            <li>177 pages</li>
             <li>6 × 9 paperback</li>
             <li>16 verses</li>
             <li>First edition</li>
@@ -1578,7 +1609,7 @@
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Not just poetry</p>
           <h2 id="story-title">A language for what survival taught you.</h2>
-          <p>A 102-page paperback of poetry, spoken word, discipline, healing, mindset, and real-life pattern recognition.</p>
+          <p>A 177-page paperback of poetry, spoken word, discipline, healing, mindset, and real-life pattern recognition.</p>
         </div>
 
         <div class="principles-grid">
@@ -1653,11 +1684,11 @@
         <div class="purchase-copy" data-reveal>
           <p class="eyebrow" style="color: var(--ink);">Ready to purchase</p>
           <h2 id="purchase-title">Order the paperback edition today.</h2>
-          <p>Get the complete physical book: 16 verses across 102 pages, built for readers who want the work in hand.</p>
+          <p>Get the complete physical book: 16 verses across 177 pages, built for readers who want the work in hand.</p>
           <ul class="purchase-promise">
             <li>Physical paperback edition</li>
             <li>Secure checkout button</li>
-            <li>Ships as a complete 102-page book</li>
+            <li>Ships as a complete 177-page book</li>
           </ul>
         </div>
 
@@ -1671,12 +1702,19 @@
               <h3>Legacy In Ink: The Final Frequency</h3>
               <p class="product-author">By Nasirr Mayo / InnerG Intel</p>
               <ul class="product-specs" aria-label="Paperback details">
-                <li>102 pages</li>
+                <li>177 pages</li>
                 <li>6 × 9 format</li>
                 <li>16 verses</li>
                 <li>First edition</li>
               </ul>
-              <a class="product-card-button stripe-purchase-link" href="#">ORDER NOW</a>
+              <div class="stripe-checkout" aria-label="Secure Stripe checkout">
+                <p class="stripe-checkout-label">Secure checkout powered by Stripe</p>
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1TxG9MQPiPou53Wcexzkxj0Z"
+                  publishable-key="pk_live_51T4DFIQPiPou53WcJhm0YLHizG8YCCY6EGdEoPO90kW3bRj3yy1q1t2ZKYXDsLj2udLk95FzcmbPEoFIu8PX9Yu700jJkBPWZ3"
+                ></stripe-buy-button>
+              </div>
+              <a class="product-card-button stripe-purchase-link" href="https://buy.stripe.com/14A4gBesDcSB3T0gOvao81o" target="_blank" rel="noopener noreferrer">BUY NOW</a>
             </div>
           </article>
         </div>
@@ -1697,7 +1735,7 @@
           <a href="#purchase">ORDER NOW</a>
         </nav>
         <nav class="footer-socials" aria-label="Social media">
-          <a class="footer-social-link" href="https://www.youtube.com/inntergintel" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://www.youtube.com/@innergintel" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
               <path d="M10 9l5 3-5 3z" fill="var(--ink)"></path>
@@ -1717,7 +1755,7 @@
     </div>
   </footer>
 
-  <a class="mobile-order" href="#purchase"><span>ORDER NOW</span></a>
+  <a class="mobile-order" href="https://buy.stripe.com/14A4gBesDcSB3T0gOvao81o" target="_blank" rel="noopener noreferrer"><span>BUY NOW</span></a>
 
   <script>
     const revealItems = document.querySelectorAll("[data-reveal]");
