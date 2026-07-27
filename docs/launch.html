@@ -1158,6 +1158,169 @@
       transform: scale(.96);
     }
 
+    .youtube-section {
+      position: relative;
+      overflow: hidden;
+      padding-block: clamp(72px, 9vw, 128px);
+      background:
+        linear-gradient(rgba(21, 19, 16, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21, 19, 16, .035) 1px, transparent 1px),
+        var(--paper-deep);
+      background-size: 36px 36px;
+    }
+
+    .youtube-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: clamp(36px, 6vw, 84px);
+      align-items: center;
+      overflow: hidden;
+      padding: clamp(32px, 6vw, 72px);
+      color: var(--paper-bright);
+      background:
+        radial-gradient(circle at 82% 30%, rgba(167, 25, 21, .32), transparent 28%),
+        var(--ink);
+      box-shadow: 12px 12px 0 var(--red), var(--shadow-lg);
+    }
+
+    .youtube-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 10px;
+      background: var(--red);
+    }
+
+    .youtube-channel {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .youtube-mark {
+      width: 76px;
+      height: 76px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--red);
+      box-shadow: 5px 5px 0 var(--paper-bright);
+    }
+
+    .youtube-mark svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .youtube-card .eyebrow {
+      margin-block-end: 14px;
+      color: #f3aaa6;
+    }
+
+    .youtube-card h2 {
+      max-width: 11ch;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 5vw, 5.8rem);
+      letter-spacing: -.025em;
+      line-height: .9;
+      text-wrap: balance;
+      text-transform: uppercase;
+    }
+
+    .youtube-card-copy {
+      max-width: 60ch;
+      margin: 22px 0 0;
+      color: #d8cbb9;
+      text-wrap: pretty;
+    }
+
+    .youtube-goal {
+      position: relative;
+      z-index: 1;
+      padding: 28px;
+      background: rgba(255, 249, 237, .07);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .13),
+        0 18px 38px rgba(0, 0, 0, .2);
+    }
+
+    .youtube-goal-label {
+      display: block;
+      color: #f3aaa6;
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .youtube-goal strong {
+      display: block;
+      margin-top: 10px;
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 4vw, 4.3rem);
+      font-weight: 900;
+      letter-spacing: -.02em;
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .youtube-goal-number {
+      color: white;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .youtube-goal p {
+      margin: 16px 0 0;
+      color: #d8cbb9;
+      font-size: .9375rem;
+      text-wrap: pretty;
+    }
+
+    .youtube-subscribe {
+      min-height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 24px;
+      padding-inline: 22px;
+      color: white;
+      background: var(--red);
+      box-shadow: 5px 5px 0 var(--paper-bright);
+      font-size: .8125rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition-property: transform, background-color, box-shadow;
+      transition-duration: .18s;
+      transition-timing-function: cubic-bezier(.2, 0, 0, 1);
+      user-select: none;
+    }
+
+    .youtube-subscribe svg {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .youtube-subscribe:hover,
+    .youtube-subscribe:focus-visible {
+      background: #c1241f;
+      box-shadow: 7px 7px 0 var(--paper-bright);
+      outline: 0;
+      transform: translate(-2px, -2px);
+    }
+
+    .youtube-subscribe:active {
+      transform: scale(.96);
+    }
+
     .site-footer {
       color: var(--paper-bright);
       background: var(--ink);
@@ -1305,7 +1468,8 @@
       .manifesto-grid,
       .inside-grid,
       .preview-grid,
-      .purchase-grid {
+      .purchase-grid,
+      .youtube-card {
         grid-template-columns: 1fr;
       }
 
@@ -1468,6 +1632,35 @@
 
       .purchase-grid {
         gap: 38px;
+      }
+
+      .youtube-card {
+        gap: 34px;
+        padding: 32px 24px 36px 30px;
+        box-shadow: 8px 8px 0 var(--red), var(--shadow-lg);
+      }
+
+      .youtube-channel {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .youtube-mark {
+        width: 64px;
+        height: 64px;
+      }
+
+      .youtube-card h2 {
+        max-width: 12ch;
+        font-size: clamp(2.65rem, 14vw, 4.7rem);
+      }
+
+      .youtube-goal {
+        padding: 24px 20px;
+      }
+
+      .youtube-subscribe {
+        width: 100%;
       }
 
       .product-card {
@@ -1749,6 +1942,38 @@
         </div>
       </div>
     </section>
+
+    <section class="youtube-section" id="youtube" aria-labelledby="youtube-title">
+      <div class="container">
+        <article class="youtube-card" data-reveal>
+          <div class="youtube-channel">
+            <div class="youtube-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
+                <path d="M10 9l5 3-5 3z" fill="var(--red)"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="eyebrow">InnerG Intel on YouTube</p>
+              <h2 id="youtube-title">The frequency continues beyond the page.</h2>
+              <p class="youtube-card-copy">Subscribe for verse breakdowns, honest conversations, spoken word, and the ideas behind <em>Legacy In Ink</em>. Read the book. Join the conversation. Carry the frequency forward.</p>
+            </div>
+          </div>
+          <div class="youtube-goal">
+            <span class="youtube-goal-label">2026 community goal</span>
+            <strong><span class="youtube-goal-number">1,000</span> subscribers</strong>
+            <p>Help InnerG Intel reach 1,000 YouTube subscribers by December 31, 2026.</p>
+            <a class="youtube-subscribe" href="https://www.youtube.com/@innergintel?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
+                <path d="M10 9l5 3-5 3z" fill="var(--red)"></path>
+              </svg>
+              <span>Subscribe to InnerG Intel</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -1764,12 +1989,12 @@
           <a href="#purchase">ORDER NOW</a>
         </nav>
         <nav class="footer-socials" aria-label="Social media">
-          <a class="footer-social-link" href="https://www.youtube.com/@innergintel" target="_blank" rel="noopener noreferrer">
+          <a class="footer-social-link" href="https://www.youtube.com/@innergintel?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="currentColor"></rect>
               <path d="M10 9l5 3-5 3z" fill="var(--ink)"></path>
             </svg>
-            <span>YouTube</span>
+            <span>Subscribe</span>
           </a>
           <a class="footer-social-link" href="https://www.instagram.com/innergintel" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2">
