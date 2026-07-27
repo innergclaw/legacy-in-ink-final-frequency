@@ -524,27 +524,59 @@
       line-height: 1.65;
     }
 
-    .preview-form {
+    .preview-actions {
       display: grid;
       align-content: center;
       gap: 10px;
     }
 
-    .preview-form input {
-      width: 100%;
+    .preview-purchase,
+    .preview-return {
       min-height: 50px;
-      border: 2px solid rgba(239, 229, 207, .72);
-      background: rgba(239, 229, 207, .1);
-      color: #fffaf1;
-      padding: 0 14px;
-      font: inherit;
-      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      font-weight: 950;
+      letter-spacing: .06em;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition-property: transform, box-shadow, color, background-color;
+      transition-duration: .18s;
+      transition-timing-function: cubic-bezier(.2, 0, 0, 1);
     }
 
-    .preview-form input::placeholder {
-      color: rgba(239, 229, 207, .62);
-      text-transform: uppercase;
-      letter-spacing: .06em;
+    .preview-purchase {
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: 5px 5px 0 var(--red);
+    }
+
+    .preview-return {
+      color: var(--paper);
+      box-shadow: inset 0 0 0 2px rgba(239, 229, 207, .72);
+    }
+
+    .preview-purchase:hover,
+    .preview-purchase:focus-visible {
+      color: var(--ink);
+      background: #fffaf1;
+      box-shadow: 7px 7px 0 var(--red);
+      outline: 0;
+      transform: translate(-2px, -2px);
+    }
+
+    .preview-return:hover,
+    .preview-return:focus-visible {
+      color: #fffaf1;
+      background: rgba(164, 24, 20, .42);
+      outline: 0;
+    }
+
+    .preview-purchase:active,
+    .preview-return:active {
+      transform: scale(.96);
     }
 
     @media (max-width: 760px) {
@@ -610,7 +642,7 @@
       <div class="splash-copy">
         <div class="eyebrow">Digital Booklet Experience</div>
         <h2>Open The<br>Frequency</h2>
-        <p>Swipe into the preview. Read the table of contents, selected verses, and reader notes before the paperback drop opens.</p>
+        <p>Swipe into the preview. Read the table of contents, selected verses, and reader notes—then continue into the complete first-edition paperback.</p>
         <div class="open-slider" id="openSlider" role="button" tabindex="0" aria-label="Swipe to open the booklet">
           <div class="slider-fill"></div>
           <div class="slider-handle">›</div>
@@ -628,7 +660,7 @@
         <button id="prev" type="button">Prev</button>
         <button id="next" type="button">Next</button>
         <button id="cover" class="secondary" type="button">Cover</button>
-        <a class="download" href="#paperback-drop">Join Drop</a>
+        <a class="download" href="./launch.html#purchase">Buy Book</a>
       </nav>
     </header>
 
@@ -647,18 +679,16 @@
       </aside>
     </main>
 
-    <section class="preview-gate" id="paperback-drop" aria-label="Join paperback drop">
+    <section class="preview-gate" id="paperback-drop" aria-label="Purchase the complete paperback">
       <div>
-        <div class="eyebrow">Preview Read</div>
-        <h2>Read The Rest<br>With The Drop.</h2>
-        <p>This public preview keeps the table of contents open, then gives you verses 005, 011, and 012. Join the paperback drop list for the full release, new verse updates, and buying details when the book is ready.</p>
+        <div class="eyebrow">Continue The Frequency</div>
+        <h2>The Complete Book<br>Is Available Now.</h2>
+        <p>This free preview includes the table of contents and selected verses 005, 011, and 012. Order the 177-page paperback to receive all sixteen verses, reader notes, reflection questions, and principles.</p>
       </div>
-      <form class="preview-form" action="https://formspree.io/f/mwvdqwle" method="POST">
-        <input type="email" name="email" placeholder="email address" required>
-        <input type="hidden" name="_subject" value="Legacy In Ink paperback drop signup">
-        <input type="hidden" name="source" value="Legacy In Ink preview reader">
-        <button type="submit">Join Paperback Drop</button>
-      </form>
+      <div class="preview-actions">
+        <a class="preview-purchase" href="./launch.html#purchase">Order The Paperback</a>
+        <a class="preview-return" href="./launch.html">Return To Book Page</a>
+      </div>
     </section>
 
   </div>
